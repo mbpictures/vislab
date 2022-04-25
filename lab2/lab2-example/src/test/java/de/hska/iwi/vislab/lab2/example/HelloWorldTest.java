@@ -18,7 +18,7 @@ public class HelloWorldTest {
 	private WebTarget target;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		// start the server
 		server = Main.startServer();
 		// create the client
@@ -36,7 +36,7 @@ public class HelloWorldTest {
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() {
 		server.shutdown();
 	}
 

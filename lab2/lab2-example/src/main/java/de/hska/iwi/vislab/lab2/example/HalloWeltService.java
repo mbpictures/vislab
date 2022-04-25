@@ -12,8 +12,7 @@ public class HalloWeltService {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String halloText(@DefaultValue("Welt") @QueryParam("name") String name) {
-		String answer = "Hallo " + name + "!";
-		return answer;
+		return "Hallo " + name + "!";
 	}
 
 	@GET
