@@ -13,11 +13,11 @@ GET http://localhost:8088/fibonacci
 
 ###
 
-POST http://localhost:8088/fibonacci/0/increase
+PUT http://localhost:8088/fibonacci/0/increase
 
 ###
 
-POST http://localhost:8088/fibonacci/0/reset
+PUT http://localhost:8088/fibonacci/0/reset
 
 ###
 
