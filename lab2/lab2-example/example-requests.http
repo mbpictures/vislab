@@ -25,6 +25,15 @@ DELETE http://localhost:8088/fibonacci/0
 
 ###
 
+PUT http://localhost:8088/fibonacci/0
+Content-Type: application/json
+
+{
+  "value": 10
+}
+
+###
+
 GET http://localhost:8088/application.wadl
 
 ###
