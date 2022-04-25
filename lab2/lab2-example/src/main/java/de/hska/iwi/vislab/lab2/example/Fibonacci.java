@@ -3,6 +3,7 @@ package de.hska.iwi.vislab.lab2.example;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,13 +23,14 @@ public class Fibonacci {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
     public String getAllFibonacci() {
-        return fibonacciCounter.stream().map(this::calcfibonacci).collect(Collectors.toList()).toString();
+        return fibonacciCounter.stream().filter(a -> a >= 0).map(this::calcfibonacci).collect(Collectors.toList()).toString();
     }
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/{id}")
     public Integer getFibonacci(@PathParam("id") int id) {
+        if (fibonacciCounter.get(id) == -1) return -1;
         return calcfibonacci(fibonacciCounter.get(id));
     }
 
@@ -45,6 +47,7 @@ public class Fibonacci {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/{id}")
     public String updateCounter(@PathParam("id") int id, FibonacciValue value){
+        if (fibonacciCounter.get(id) == -1) return "Not found";
         fibonacciCounter.set(id, value.value);
         return Integer.toString(calcfibonacci(fibonacciCounter.get(id)));
     }
@@ -52,21 +55,24 @@ public class Fibonacci {
     @DELETE
     @Path("/{id}")
     public void deleteFibonacci(@PathParam("id") int id) {
-        fibonacciCounter.remove(id);
+        if (fibonacciCounter.get(id) == -1 || fibonacciCounter.size() - 1 < id) return;
+        fibonacciCounter.set(id, -1);
     }
     
-    @POST
+    @PUT
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/{id}/increase")
     public String increaseFibonacci(@PathParam("id") int id) {
+        if (fibonacciCounter.get(id) == -1) return "Not found";
         fibonacciCounter.set(id, fibonacciCounter.get(id) + 1);
         return Integer.toString(calcfibonacci(fibonacciCounter.get(id)));
     }
 
-    @POST
+    @PUT
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/{id}/reset")
     public String resetFibonacci(@PathParam("id") int id) {
+        if (fibonacciCounter.get(id) == -1) return "Not found";
         fibonacciCounter.set(id, 1);
         return Integer.toString(calcfibonacci(fibonacciCounter.get(id)));
     }

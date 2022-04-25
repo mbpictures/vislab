@@ -61,11 +61,11 @@ public class FibonacciTest {
 
 	@Test
 	public void test3IncreaseCounter() {
-		String responseMsg = target.path("fibonacci/0/increase").request().post(Entity.text(""), String.class);
+		String responseMsg = target.path("fibonacci/0/increase").request().put(Entity.text(""), String.class);
 		assertEquals("1", responseMsg);
-		responseMsg = target.path("fibonacci/0/increase").request().post(Entity.text(""), String.class);
+		responseMsg = target.path("fibonacci/0/increase").request().put(Entity.text(""), String.class);
 		assertEquals("2", responseMsg);
-		responseMsg = target.path("fibonacci/0/increase").request().post(Entity.text(""), String.class);
+		responseMsg = target.path("fibonacci/0/increase").request().put(Entity.text(""), String.class);
 		assertEquals("3", responseMsg);
 
 		responseMsg = target.path("fibonacci/0").request().method("GET").readEntity(String.class);
@@ -74,7 +74,7 @@ public class FibonacciTest {
 
 	@Test
 	public void test4ResetCounter() {
-		String responseMsg = target.path("fibonacci/0/reset").request().post(Entity.text(""), String.class);
+		String responseMsg = target.path("fibonacci/0/reset").request().put(Entity.text(""), String.class);
 		assertEquals("1", responseMsg);
 		responseMsg = target.path("fibonacci/0").request().method("GET").readEntity(String.class);
 		assertEquals("1", responseMsg);
